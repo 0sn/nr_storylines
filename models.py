@@ -19,4 +19,4 @@ class Storyline(models.Model):
         return self.comics.public().order_by('-date')[0]
         
     def associated_ids(self):
-        return self.comics.public().order_by('date').values('id')
+        return self.comics.public().order_by('date').values_list('sequence', flat=True)
