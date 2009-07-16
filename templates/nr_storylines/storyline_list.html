@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+
+{% block title %}Storylines!{% endblock %}
+
+{% block headstuff %}
+<script src="{{MEDIA_URL}}/js/archive.js" type="text/javascript" charset="utf-8"></script>
+<style type="text/css">
+.toggler{background-color:#ccc;text-align:right;padding:0 0 0 0;}
+.toggler span{padding:0 1.5em 0 1.5em;}
+.toggler:hover{background-color:#aaa;}
+#main p{margin-bottom:0;}
+#main p.toggler{margin-bottom:1.5em;}
+#main ul{margin:0 1.5em 0 1.5em;padding-bottom:1.5em;text-align:left;}
+</style>
+{% endblock %}
+
+{% block pageinfo %}
+    <h2>Storylines</h2>
+    <p>This is the list of exciting storylines.</p>
+{% endblock %}
+
+{% block bodycontent %}
+<div class="box">
+{% spaceless %}
+{% if storyline_list %}
+{% for storyline in storyline_list %}
+<h3 id="{{ storyline.slug }}">{{ storyline.title }}</h3>
+    <p>{{ storyline.description }}</p>
+<ul class="nav">{% for comic in storyline.comics.public %}
+    <li><a href="{{ comic.get_absolute_url }}"><span>{{ comic.date|date:"j F, Y" }}</span>
+    {{comic.title}}</a>
+    </li>
+{% endfor %}
+</ul>
+{% endfor %}
+{% else %}
+        <p>There are no storylines.</p>
+{% endif %}
+{% endspaceless %}
+</div>
+{% endblock %}
+
+{% block localnews %}
+<div id="contribution">
+<h3>Fun Facts</h3>
+</div>
+{% endblock %}
