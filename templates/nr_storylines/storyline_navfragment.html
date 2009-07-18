@@ -1,19 +1,17 @@
-<ul class="storynavstart">
-{% ifequal comic.sequence first %}
-    <li class="storyfirstnot"><a>First</a></li>
-    <li class="storyprevnot"><a>Previous</a></li>
-{% else %}
-    <li class="storyfirst"><a href="/comics/{{ first }}/" title="First">First</a></li>
-    <li class="storyprev"><a href="/comics/{{ prev }}/" title="Previous">Previous</a></li>
-{% endifequal %}
-</ul>
-<ul class="storynavend">
-{% ifequal comic.sequence last %}
-    <li class="storynextnot"><a>Next</a></li>
-    <li class="storylastnot"><a>Last</a></li>
-{% else %}
-    <li class="storynext"><a href="/comics/{{ next }}/" title="Next">Next</a></li>
-    <li class="storylast"><a href="/comics/{{ last }}/" title="Last">Last</a></li>
-{% endifequal %}
-</ul>
 <p class="storytitle"><a href="/storylines/#{{ storyline.slug }}">{{ storyline.title }}</a></p>
+<ul class="inline">
+{% ifequal comic.sequence first %}
+    <li>first</li>
+    <li>previous</li>
+{% else %}
+    <li><a href="/comics/{{ first }}/">first</a></li>
+    <li<a href="/comics/{{ prev }}/">previous</a></li>
+{% endifequal %}
+{% ifequal comic.sequence last %}
+    <li>next</li>
+    <li>last</li>
+{% else %}
+    <li><a href="/comics/{{ next }}/">next</a></li>
+    <li><a href="/comics/{{ last }}/">last</a></li>
+{% endifequal %}
+</ul>

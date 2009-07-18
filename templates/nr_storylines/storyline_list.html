@@ -4,40 +4,39 @@
 
 {% block headstuff %}
 <style type="text/css">
-.ui-tabs .ui-tabs-hide { display: none !important; }
-#storylines ul.nav .ui-state-active a {border-color:#eee;background-color:#eee; font-weight: bold; color: black;}
-#storylinelist {width: 150px; float: left; margin-right: 18px;}
-.storyline  {width: 346px; float: left;}
+#main ul.nav {width: 200px; float:left;}
+#main .tabs {width: 340px; float:right;}
 </style>
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){
-        $("#storylines").tabs();
+        $("#main").tabs();
     });
 </script>
 {% endblock %}
 
-{% block pageinfo %}
+{% block sidebar %}
     <h2>Storylines</h2>
-    <p>This is the list of exciting storylines.</p>
+    <p>This is the storyline archive. You may also be interested in the
+        <a href="/comics/">archive of comics by date</a>.</p>
 {% endblock %}
 
 {% block bodycontent %}
-<div class="box" id="storylines">
-    <p id="intro">This is the storyline archive. You may also be interested in the
-        <a href="/comics/">archive of comics by date</a>.</p>
 {% spaceless %}
 {% if storyline_list %}
-    <ul id="storylinelist" class="nav storylinelist">
+    <ul class="nav">
         {% for storyline in storyline_list %}
-            <li><a href="#{{storyline.slug}}">{{ storyline.title}}</a></li>
+            <li><a href="#{{storyline.slug}}">{{ storyline.title }}</a></li>
         {% endfor %}
     </ul>
+{% endif %}
+{% if storyline_list %}
     {% for storyline in storyline_list %}
-        <div id="{{storyline.slug}}" class="storyline">
+        <div id="{{storyline.slug}}" class="tabs">
+            <h3>{{storyline.title}}</h3>
             <p>{{ storyline.description}}</p>
-            <ul class="nav">{% for comic in storyline.comics.public %}
-            <li><a href="{{ comic.get_absolute_url }}">
-            {{comic.title}}</a></li>{% endfor %}
+            <ul>{% for comic in storyline.comics.public %}
+                <li><a href="{{ comic.get_absolute_url }}">
+                {{comic.title}}</a></li>{% endfor %}
             </ul>
         </div>
     {% endfor %}
@@ -46,8 +45,4 @@
         <p>There are no storylines.</p>
 {% endif %}
 {% endspaceless %}
-</div>
-{% endblock %}
-
-{% block localnews %}
 {% endblock %}
