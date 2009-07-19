@@ -5,6 +5,8 @@ class StorylineAdmin(admin.ModelAdmin):
     list_display = ('title','total','first','last')
     prepopulated_fields = {'slug': ('title',),}
     
+    filter_vertical = ('comics',)
+    
     def total(self, obj):
         """
         Returns number of comics associated with storyline

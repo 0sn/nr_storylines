@@ -25,7 +25,15 @@
 {% if storyline_list %}
     <ul class="nav">
         {% for storyline in storyline_list %}
+            {% if storyline.major %}
             <li><a href="#{{storyline.slug}}">{{ storyline.title }}</a></li>
+            {% endif %}
+        {% endfor %}
+        <hr>
+        {% for storyline in storyline_list %}
+            {% if not storyline.major %}
+                <li><a href="#{{storyline.slug}}">{{ storyline.title }}</a></li>
+            {% endif %}
         {% endfor %}
     </ul>
 {% endif %}
@@ -35,7 +43,7 @@
             <h3>{{storyline.title}}</h3>
             <p>{{ storyline.description}}</p>
             <ul>{% for comic in storyline.comics.public %}
-                <li><a href="{{ comic.get_absolute_url }}">
+                <li>{{ comic.date|date:"d F Y" }}<a href="{{ comic.get_absolute_url }}">
                 {{comic.title}}</a></li>{% endfor %}
             </ul>
         </div>

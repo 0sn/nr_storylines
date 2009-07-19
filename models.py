@@ -5,6 +5,7 @@ class Storyline(models.Model):
     slug = models.SlugField(max_length=100)
     description = models.TextField(blank=True)
     comics = models.ManyToManyField('nr_comics.Comic')
+    major = models.BooleanField(default=False)
     
     class Meta:
         ordering = ('slug',)
