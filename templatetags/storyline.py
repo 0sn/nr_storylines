@@ -1,4 +1,5 @@
 from django import template
+from django.http import HttpResponseNotFound
 import re
 
 from nr_storylines.models import Storyline
@@ -15,7 +16,10 @@ class StorylineNav(template.Node):
         comic = template.Variable("comic").resolve(context)
         t = template.loader.get_template("nr_storylines/storyline_navfragment.html")
         ids = list(storyline.associated_ids())
-        index = ids.index(comic.sequence)
+        try:
+            index = ids.index(comic.sequence)
+        except ValueError:
+            raise HttpResponseNotFound
         return t.render(template.Context({
             'storyline':storyline,
             'comic':comic,
