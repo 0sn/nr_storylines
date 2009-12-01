@@ -1,5 +1,5 @@
 from django import template
-from django.http import HttpResponseNotFound
+from django.http import Http404
 import re
 
 from nr_storylines.models import Storyline
@@ -19,7 +19,7 @@ class StorylineNav(template.Node):
         try:
             index = ids.index(comic.sequence)
         except ValueError:
-            raise HttpResponseNotFound
+            raise Http404
         return t.render(template.Context({
             'storyline':storyline,
             'comic':comic,
